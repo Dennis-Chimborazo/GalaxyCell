@@ -1,0 +1,104 @@
+{% load static %}
+
+{# --- CONTROL DE ANCHO EN EL CONTENEDOR CONTROLANDO EL CENTRADO --- #}
+<div class="relative inline-block shrink-0 
+    {% if width_style == 'half' %}w-1/2 mx-auto
+    {% elif width_style == 'full' %}w-full
+    {% endif %}"
+>
+
+    {% if is_file %}
+        <input
+            type="file"
+            {% if id %}id="{{ id }}_input"{% endif %}
+            name="{{ file_name|default:'file' }}"
+            accept=".zip"
+            class="hidden"
+            @change="{{ file_change_action|default:'' }}"
+        >
+    {% endif %}
+
+    <button
+        type="{{ tipo|default:'button' }}"
+        {% if id %}id="{{ id }}"{% endif %}
+
+        {% if is_file %}
+            @click="$el.previousElementSibling.click()"
+        {% else %}
+
+            {% if hx_get %}
+                hx-get="{{ hx_get }}"
+                hx-target="{{ hx_target|default:'#modal-body-content' }}"
+                hx-swap="{{ hx_swap|default:'innerHTML' }}"
+                hx-indicator="#modal-loader"
+            {% endif %}
+
+            {% if hx_post %}
+                hx-post="{{ hx_post }}"
+                hx-target="{{ hx_target|default:'#modal-body-content' }}"
+                hx-swap="{{ hx_swap|default:'innerHTML' }}"
+                hx-indicator="#modal-loader"
+            {% endif %}
+
+        {% endif %}
+
+        {% if hx_confirm %}
+            hx-confirm="{{ hx_confirm }}"
+        {% endif %}
+
+        {% if open_modal and not is_file %}
+            @click="$dispatch('open-modal', { title: '{{ label|default:"Formulario" }}' })"
+        {% elif close_modal %}
+            @click="$dispatch('close-modal')"
+        {% endif %}
+
+        {{ extra_attrs|safe }}
+
+        {# --- SE APLICA EL ANCHO SEGÚN EL PARÁMETRO --- #}
+        class="btn transition-all duration-200 w-full
+
+        {# --- CONTROL DE TAMAÑOS RESPONSIVOS (Padding) --- #}
+        {% if size == 'sm' %}
+            px-2 py-1 sm:px-3 sm:py-1.5
+        {% elif size == 'lg' %}
+            px-4 py-2.5 sm:px-6 sm:py-3
+        {% else %}
+            px-2.5 py-1.5 sm:px-4 sm:py-2
+        {% endif %}
+
+        {# --- CONTROL DE ESTILOS DE COLOR --- #}
+        {% if style == 'search' %}
+            btn-info
+        {% elif style == 'save' %}
+            btn-success
+        {% elif style == 'update' %}
+            btn-primary
+        {% elif style == 'new' %}
+            btn-primary
+        {% elif style == 'folder' %}
+            btn-warning
+        {% elif style == 'cancel' %}
+            btn-secondary
+        {% elif style == 'delete' %}
+            btn-danger
+        {% else %}
+            btn-primary
+        {% endif %}"
+    >
+        <div class="flex items-center justify-center">
+            <span class="inline font-semibold tracking-wide whitespace-nowrap
+                {% if size == 'sm' %}
+                    text-[11px] sm:text-xs
+                {% elif size == 'lg' %}
+                    text-sm sm:text-base
+                {% else %}
+                    text-xs sm:text-sm
+                {% endif %}"
+            >
+                {{ label|default:"Aceptar" }}
+            </span>
+        </div>
+
+    </button>
+
+</div>

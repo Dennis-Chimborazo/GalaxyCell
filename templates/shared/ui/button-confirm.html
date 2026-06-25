@@ -1,0 +1,94 @@
+{% load static %}
+
+<button
+    type="button"
+    {% if id %}id="{{ id }}"{% endif %}
+
+    @click="window.dispatchEvent(new CustomEvent('open-confirm', {
+        detail: {
+            title: '{{ label|default:"Confirmar Acción" }}',
+            message: '{{ message|default:"¿Está seguro de realizar esta acción?" }}',
+            action: () => {
+
+                {% if is_submit %}
+
+                    const form = document.getElementById('{{ form_id }}');
+                    if (form) form.requestSubmit();
+
+                {% else %}
+
+                    htmx.ajax('POST', '{{ url }}', {
+                        target: '{{ hx_target|default:"#table-results" }}',
+                        swap: 'innerHTML'
+                    });
+
+                {% endif %}
+            }
+        }
+    }))"
+
+    {{ extra_attrs|safe }}
+
+    class="btn
+
+    {% if style == 'edit' %}
+
+        btn-primary
+
+    {% elif style == 'activate' %}
+
+        btn-success
+
+    {% elif style == 'deactivate' %}
+
+        btn-warning
+
+    {% elif style == 'delete' %}
+
+        btn-danger
+
+    {% else %}
+
+        btn-primary
+
+    {% endif %}"
+>
+
+    <div class="flex items-center justify-center gap-2">
+
+        {% if style == 'delete' %}
+            <img
+                src="{% static 'icons/delete.svg' %}"
+                class="w-5 h-5 invert brightness-200"
+                alt="Eliminar"
+            >
+
+        {% elif style == 'deactivate' %}
+            <img
+                src="{% static 'icons/deactivate.svg' %}"
+                class="w-5 h-5 invert brightness-200"
+                alt="Desactivar"
+            >
+
+        {% elif style == 'activate' %}
+            <img
+                src="{% static 'icons/activate.svg' %}"
+                class="w-5 h-5 invert brightness-200"
+                alt="Activar"
+            >
+
+        {% elif style == 'edit' %}
+            <img
+                src="{% static 'icons/edit.svg' %}"
+                class="w-5 h-5 invert brightness-200"
+                alt="Editar"
+            >
+        {% endif %}
+
+        <span class="whitespace-nowrap">
+            {{ label }}
+        </span>
+
+    </div>
+
+</button>

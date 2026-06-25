@@ -1,0 +1,97 @@
+{# templates/shared/ui/select.html #}
+
+<div class="space-y-1">
+
+    {% if label %}
+    <label
+        for="{{ id|default:name|default:field.name }}"
+        class="form-label"
+    >
+        {{ label }}
+
+        {% if required %}
+            <span class="text-danger">*</span>
+        {% endif %}
+    </label>
+    {% endif %}
+
+    <select
+
+        name="{{ name|default:field.name }}"
+        id="{{ id|default:name|default:field.name }}"
+
+        {% if required %}required{% endif %}
+        {% if multiple %}multiple{% endif %}
+
+        class="form-select
+
+        {% if field.errors %}
+            form-select-error
+        {% endif %}
+
+        {% if classes %}
+            {{ classes }}
+        {% endif %}
+        "
+
+        {% if hx_get %}hx-get="{{ hx_get }}"{% endif %}
+        {% if hx_post %}hx-post="{{ hx_post }}"{% endif %}
+        {% if hx_target %}hx-target="{{ hx_target }}"{% endif %}
+        {% if hx_swap %}hx-swap="{{ hx_swap }}"{% endif %}
+        {% if hx_trigger %}hx-trigger="{{ hx_trigger }}"{% endif %}
+        {% if hx_include %}hx-include="{{ hx_include }}"{% endif %}
+        {% if hx_vals %}hx-vals='{{ hx_vals }}'{% endif %}
+        {% if hx_confirm %}hx-confirm="{{ hx_confirm }}"{% endif %}
+    >
+
+        {% if placeholder and not multiple %}
+            <option value="">
+                {{ placeholder }}
+            </option>
+        {% endif %}
+
+        {% for obj in options %}
+
+            {% if obj.0 != None and obj.1 != None %}
+
+                <option
+                    value="{{ obj.0 }}"
+                    {% if selected_value|stringformat:"s" == obj.0|stringformat:"s" %}
+                        selected
+                    {% endif %}
+                    title="{{ obj.1 }}"
+                >
+                    {{ obj.1|stringformat:"s"|truncatechars:60 }}
+                </option>
+
+            {% else %}
+
+                <option
+                    value="{{ obj.pk }}"
+                    {% if selected_value|stringformat:"s" == obj.pk|stringformat:"s" %}
+                        selected
+                    {% endif %}
+                    title="{{ obj }}"
+                >
+                    {{ obj|stringformat:"s"|truncatechars:70 }}
+                </option>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </select>
+
+    {% if help_text %}
+        <p class="form-help">
+            {{ help_text }}
+        </p>
+    {% endif %}
+
+    {% if field.errors %}
+        <p class="form-error">
+            {{ field.errors.0 }}
+        </p>
+    {% endif %}
+
+</div>

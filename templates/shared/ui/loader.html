@@ -1,0 +1,41 @@
+<div 
+    x-data="{ loading: false }" 
+    x-show="loading"
+    x-cloak
+    @htmx:before-request.window="loading = true"
+    @htmx:after-request.window="loading = false"
+    @htmx:on-load-error.window="loading = false"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="fixed inset-0 z-[110000] flex items-center justify-center bg-white/70 backdrop-blur-[2px] cursor-wait"
+    style="display: none;" 
+>
+    <div class="flex flex-col items-center">
+        <style>
+            .loader {
+                width: 50px;
+                aspect-ratio: 1;
+                display: grid;
+                border-radius: 50%;
+                background:
+                    linear-gradient(0deg ,rgb(0 0 0/50%) 30%,#0000 0 70%,rgb(0 0 0/100%) 0) 50%/8% 100%,
+                    linear-gradient(90deg,rgb(0 0 0/25%) 30%,#0000 0 70%,rgb(0 0 0/75% ) 0) 50%/100% 8%;
+                background-repeat: no-repeat;
+                animation: l23 1s infinite steps(12);
+            }
+            .loader::before, .loader::after {
+               content: ""; grid-area: 1/1; border-radius: 50%; background: inherit;
+               opacity: 0.915; transform: rotate(30deg);
+            }
+            .loader::after { opacity: 0.83; transform: rotate(60deg); }
+            @keyframes l23 { 100% {transform: rotate(1turn)} }
+        </style>
+        
+        <div class="loader"></div>
+        <span class="mt-4 font-bold text-neutral animate-pulse">Cargando...</span>
+    </div>
+</div>

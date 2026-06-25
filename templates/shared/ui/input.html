@@ -1,0 +1,135 @@
+{% load static %}
+
+{% with is_password_type=field.field.widget.input_type|default:""|slugify %}
+<div 
+    class="w-full text-left flex-1 relative"
+    {# Si no viene de un field de Django, validamos si pasaron el parámetro 'type' manualmente como string #}
+    {% if is_password_type == 'password' or type == 'password' %}
+    x-data="{ showPassword: false }"
+    {% endif %}
+>
+
+    {% if label != False %}
+    <label
+        class="block text-sm font-semibold text-text-primary mb-1"
+        for="{% if field %}{{ field.id_for_label }}{% endif %}"
+    >
+        {% if label %}
+            {{ label }}
+        {% elif field %}
+            {{ field.label }}
+        {% else %}
+            Campo
+        {% endif %}
+
+        {% if field.field.required or required %}
+            <span class="text-danger">*</span>
+        {% endif %}
+    </label>
+    {% endif %}
+
+    <div class="relative w-full">
+        <input
+            {% if is_password_type == 'password' or type == 'password' %}
+                :type="showPassword ? 'text' : 'password'"
+            {% else %}
+                type="{% if field %}{{ field.field.widget.input_type|default:'text' }}{% else %}{{ type|default:'text' }}{% endif %}"
+            {% endif %}
+            
+            name="{% if field %}{{ field.name }}{% else %}{{ name }}{% endif %}"
+            id="{% if field %}{{ field.id_for_label }}{% endif %}"
+            value="{% if field %}{{ field.value|default:'' }}{% else %}{{ value|default:'' }}{% endif %}"
+            placeholder="{% if placeholder %}{{ placeholder }}{% elif field %}{{ field.field.widget.attrs.placeholder }}{% else %}Escriba...{% endif %}"
+
+            {# CORRECCIÓN DE LA ADVERTENCIA: Soporta el paso de autocomplete o lee el del widget si existe #}
+            autocomplete="{% if autocomplete %}{{ autocomplete }}{% elif field.field.widget.attrs.autocomplete %}{{ field.field.widget.attrs.autocomplete }}{% endif %}"
+
+            {% if field.field.required or required %}required{% endif %}
+            {% if maxlength %}maxlength="{{ maxlength }}"{% endif %}
+            {% if minlength %}minlength="{{ minlength }}"{% endif %}
+            {% if disabled %}disabled{% endif %}
+            {% if readonly %}readonly{% endif %}
+
+            class="
+                w-full
+                h-12
+                pl-4
+                {# Si es password, dejamos espacio a la derecha (pr-12) para que el texto no se monte en el icono #}
+                {% if is_password_type == 'password' %}pr-12{% else %}pr-4{% endif %}
+                rounded-lg
+                border
+                transition-all
+                duration-200
+                outline-none
+
+                {% if disabled or readonly %}
+                    bg-background-secondary
+                    text-text-disabled
+                    border-border
+                    cursor-not-allowed
+                    opacity-75
+                {% elif field.errors or errors %}
+                    border-danger
+                    bg-white
+                    text-text-primary
+                    focus:border-danger
+                    focus:ring-4
+                    focus:ring-danger-light
+                {% else %}
+                    bg-white
+                    text-text-primary
+                    border-border
+                    hover:border-primary-300
+                    focus:border-primary
+                    focus:ring-4
+                    focus:ring-primary-100
+                {% endif %}
+            "
+            style="padding-top:0;padding-bottom:0;"
+        >
+
+        {# --- BOTÓN INTERACTIVO PARA INPUTS DE TIPO CONTRASEÑA --- #}
+        {% if is_password_type == 'password' and not disabled and not readonly %}
+        <button
+            type="button"
+            class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-gray-100 transition-colors focus:outline-none z-20"
+            @click="showPassword = !showPassword"
+            tabindex="-1"
+            title="Mostrar/Ocultar contraseña"
+        >
+            <img 
+                src="{% static 'icons/see2.svg' %}" 
+                class="w-5 h-5 text-text-secondary opacity-70"
+                x-show="!showPassword"
+                alt="Ver"
+            >
+            <img 
+                src="{% static 'icons/hide.svg' %}" 
+                class="w-5 h-5 text-text-secondary opacity-70"
+                x-show="showPassword"
+                x-cloak
+                alt="Ocultar"
+            >
+        </button>
+        {% endif %}
+    </div>
+
+    {# --- RENDERIZADO DE ERRORES --- #}
+    {% if field.errors or errors %}
+    <div class="mt-1 space-y-1">
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <p class="text-xs text-danger font-medium ml-1">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if errors %}
+            {% for error in errors %}
+                <p class="text-xs text-danger font-medium ml-1">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+{% endwith %}

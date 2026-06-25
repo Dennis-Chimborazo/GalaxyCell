@@ -1,0 +1,17 @@
+<form
+    method="POST"
+    hx-post="{% url 'login:login-process' %}"
+    hx-target="#form-container"
+    hx-swap="innerHTML"
+    class="space-y-4 sm:space-y-5 w-full"
+>
+    {% csrf_token %}
+
+    {% include "shared/ui/input.html" with field=form.username placeholder="Introduce tu usuario" autocomplete="username" %}
+
+    {% include "shared/ui/input.html" with field=form.password placeholder="••••••••" autocomplete="current-password" %}
+
+    <div class="pt-2 sm:pt-4 flex justify-center w-full">
+        {% include "shared/ui/button-single.html" with tipo="submit" style="login" label="Ingresar" size="lg" width_style="half" %}
+    </div>
+</form>

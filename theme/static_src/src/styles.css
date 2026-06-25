@@ -1,0 +1,640 @@
+@import "tailwindcss";
+
+@source "../../../**/*.{html,py,js}";
+
+/* ======================================
+   DESIGN SYSTEM CORPORATIVO
+   ====================================== */
+
+@theme {
+    /* ======================================
+       BRAND COLORS
+       ====================================== */
+    --color-primary: #0066ff;
+    --color-secondary: #003b8e;
+    --color-tertiary: #4fc3ff;
+    --color-accent: #00d4ff;
+
+    /* ======================================
+       ESCALA AZUL CORPORATIVA
+       ====================================== */
+    --color-primary-50: #f0f7ff;
+    --color-primary-100: #dceeff;
+    --color-primary-200: #bfe0ff;
+    --color-primary-300: #91c8ff;
+    --color-primary-400: #5caaff;
+    --color-primary-500: #2f89ff;
+    --color-primary-600: #0066ff;
+    --color-primary-700: #0052cc;
+    --color-primary-800: #003b8e;
+    --color-primary-900: #002a66;
+    --color-primary-950: #001633;
+
+    /* ======================================
+       AZUL MARINO
+       ====================================== */
+    --color-navy-50: #edf3ff;
+    --color-navy-100: #d8e4ff;
+    --color-navy-200: #b7ccff;
+    --color-navy-300: #88a9ff;
+    --color-navy-400: #567eff;
+    --color-navy-500: #3258f5;
+    --color-navy-600: #213bd7;
+    --color-navy-700: #192db0;
+    --color-navy-800: #16288d;
+    --color-navy-900: #14246f;
+    --color-navy-950: #0d143f;
+
+    /* ======================================
+       CELESTE
+       ====================================== */
+    --color-sky-50: #f0fcff;
+    --color-sky-100: #dff8ff;
+    --color-sky-200: #b8f0ff;
+    --color-sky-300: #7de4ff;
+    --color-sky-400: #4fc3ff;
+    --color-sky-500: #1ca7ff;
+    --color-sky-600: #0086e6;
+    --color-sky-700: #0068b3;
+    --color-sky-800: #00568f;
+    --color-sky-900: #064975;
+
+    /* ======================================
+       NEUTROS PROFESIONALES
+       ====================================== */
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+    --color-gray-50: #f8fafc;
+    --color-gray-100: #f1f5f9;
+    --color-gray-200: #e2e8f0;
+    --color-gray-300: #cbd5e1;
+    --color-gray-400: #94a3b8;
+    --color-gray-500: #64748b;
+    --color-gray-600: #475569;
+    --color-gray-700: #334155;
+    --color-gray-800: #1e293b;
+    --color-gray-900: #0f172a;
+    --color-gray-950: #020617;
+
+    /* ======================================
+       ESTADOS
+       ====================================== */
+    --color-success-light: #dcfce7;
+    --color-success: #22c55e;
+    --color-success-dark: #15803d;
+
+    --color-warning-light: #fef3c7;
+    --color-warning: #f59e0b;
+    --color-warning-dark: #b45309;
+
+    --color-danger-light: #fee2e2;
+    --color-danger: #ef4444;
+    --color-danger-dark: #b91c1c;
+
+    --color-info-light: #dbeafe;
+    --color-info: #3b82f6;
+    --color-info-dark: #1d4ed8;
+
+    /* ======================================
+       FONDOS
+       ====================================== */
+    --color-background: #f8fafc;
+    --color-background-secondary: #f1f5f9;
+    --color-background-dark: #e2e8f0;
+
+    --color-surface: #ffffff;
+    --color-surface-hover: #f8fafc;
+    --color-surface-active: #f1f5f9;
+
+    /* ======================================
+       SIDEBAR
+       ====================================== */
+    --color-sidebar-bg: #0f172a;
+    --color-sidebar-hover: #1e293b;
+    --color-sidebar-active: #0066ff;
+    --color-sidebar-text: #f8fafc;
+
+    /* ======================================
+       NAVBAR
+       ====================================== */
+    --color-navbar-bg: #ffffff;
+    --color-navbar-border: #e2e8f0;
+
+    /* ======================================
+       TABLAS
+       ====================================== */
+    --color-table-header: #f8fafc;
+    --color-table-row-hover: #eff6ff;
+    --color-table-border: #e2e8f0;
+
+    /* ======================================
+       FORMULARIOS
+       ====================================== */
+    --color-input-bg: #ffffff;
+    --color-input-border: #cbd5e1;
+    --color-input-focus: #0066ff;
+
+    /* ======================================
+       TEXTOS
+       ====================================== */
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #475569;
+    --color-text-muted: #64748b;
+    --color-text-disabled: #94a3b8;
+    --color-text-white: #ffffff;
+
+    /* ======================================
+       BORDES
+       ====================================== */
+    --color-border: #e2e8f0;
+    --color-border-light: #f1f5f9;
+    --color-border-dark: #cbd5e1;
+
+    /* ======================================
+       RADIOS
+       ====================================== */
+    --radius-xs: 0.25rem;
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+
+    /* ======================================
+       BOTONES
+       ====================================== */
+    --color-btn-primary: #0066ff;
+    --color-btn-primary-hover: #0052cc;
+
+    --color-btn-success: #22c55e;
+    --color-btn-success-hover: #16a34a;
+
+    --color-btn-warning: #f59e0b;
+    --color-btn-warning-hover: #d97706;
+
+    --color-btn-danger: #ef4444;
+    --color-btn-danger-hover: #dc2626;
+
+    --color-btn-secondary: #64748b;
+    --color-btn-secondary-hover: #475569;
+
+    --color-btn-info: #0ea5e9;
+    --color-btn-info-hover: #0284c7;
+
+      /* ======================================
+        SOMBRAS
+       ====================================== */
+    --shadow-card:
+        0 1px 3px rgba(0,0,0,0.05),
+        0 1px 2px rgba(0,0,0,0.1);
+
+    --shadow-dropdown:
+        0 10px 15px rgba(0,0,0,0.1);
+
+    --shadow-modal:
+        0 25px 50px rgba(0,0,0,0.15);
+
+    --font-sans: "Inter", sans-serif;
+}
+
+@layer base {
+
+    html {
+        font-family: "Inter", sans-serif;
+    }
+
+    body {
+        background-color: var(--color-background);
+        color: var(--color-text-primary);
+    }
+
+    ::selection {
+        background-color: var(--color-primary-200);
+        color: var(--color-text-primary);
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color-background);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--color-primary-300);
+        border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-primary);
+    }
+}
+
+@layer components {
+    /* ==========================
+       SIDEBAR
+       ========================== */
+
+    .sidebar {
+        background: var(--color-surface);
+        border-right: 1px solid var(--color-border);
+    }
+
+    .sidebar-header {
+        border-bottom: 1px solid var(--color-border);
+        background: var(--color-surface);
+    }
+
+    .sidebar-user {
+        color: var(--color-text-primary);
+    }
+
+    .sidebar-user-subtitle {
+        color: var(--color-text-secondary);
+    }
+
+    /* ==========================
+       MENÚ PRINCIPAL
+       ========================== */
+
+    .sidebar-link {
+        @apply flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200;
+        color: var(--color-text-secondary);
+        border: 1px solid transparent;
+    }
+
+    .sidebar-link:hover {
+        background: var(--color-primary-50);
+        color: var(--color-primary);
+        border-color: var(--color-primary-100);
+    }
+
+    .sidebar-link-active {
+        background: linear-gradient(
+            135deg,
+            var(--color-primary),
+            var(--color-primary-dark)
+        );
+
+        color: white;
+        box-shadow: 0 10px 25px rgba(0,102,255,.15);
+    }
+
+    /* ==========================
+       GRUPOS
+       ========================== */
+
+    .sidebar-group-button {
+        @apply w-full flex items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200;
+        color: var(--color-text-secondary);
+        border: 1px solid var(--color-border);
+        background: var(--color-surface);
+    }
+
+    .sidebar-group-button:hover {
+        background: var(--color-primary-50);
+    }
+
+    .sidebar-group-button-active {
+        background: var(--color-primary-50);
+        border-color: var(--color-primary-200);
+        color: var(--color-primary);
+    }
+
+    /* ==========================
+       SUBMENÚ
+       ========================== */
+
+    .sidebar-subitem {
+        @apply flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all duration-200;
+        color: var(--color-text-secondary);
+    }
+
+    .sidebar-subitem:hover {
+        background: var(--color-primary-50);
+        color: var(--color-primary);
+    }
+
+    .sidebar-subitem-active {
+        background: var(--color-primary-100);
+        color: var(--color-primary-dark);
+        font-weight: 700;
+    }
+
+    /* ==========================
+       LOGOUT
+       ========================== */
+
+    .sidebar-logout {
+        @apply flex items-center justify-center w-full rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200 cursor-pointer;
+        border: 1px solid #fecaca;
+        color: var(--color-danger);
+        background: white;
+    }
+
+    .sidebar-logout:hover {
+        background: #fff1f2;
+    }
+
+    
+      .card {
+        @apply rounded-2xl shadow-xl;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+    }
+
+    .card-header {
+        @apply p-6 border-b;
+        border-color: var(--color-border);
+    }
+
+    .card-body {
+        @apply p-6;
+    }
+    
+   .app-shell {
+        @apply flex min-h-screen;
+    }
+
+    /* =====================================
+       MODAL
+       ===================================== */
+    .modal-overlay {
+        @apply absolute inset-0 backdrop-blur-sm;
+        background-color: rgba(0, 0, 0, 0.45);
+    }
+
+    .modal-container {
+        @apply relative z-10 flex flex-col overflow-hidden rounded-2xl shadow-2xl;
+        width: 500px;
+        max-width: 95vw;
+        min-height: 200px;
+        max-height: 90vh;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+    }
+
+    .modal-header {
+        @apply flex items-center justify-between px-5 py-3 border-b;
+        background-color: var(--color-surface);
+        border-color: var(--color-border);
+    }
+
+    .modal-title {
+        @apply text-base font-semibold;
+        color: var(--color-text-primary);
+    }
+
+    .modal-close {
+        @apply p-1 rounded-lg transition-all duration-200;
+        color: var(--color-text-secondary);
+    }
+
+    .modal-close:hover {
+        background-color: var(--color-gray-100);
+        color: var(--color-text-primary);
+    }
+
+    .modal-body {
+        @apply flex-1 p-5 overflow-auto;
+        background-color: var(--color-surface);
+    }
+
+    /* =====================================
+       LOADER
+       ===================================== */
+    .loader-spinner {
+        @apply w-8 h-8 border-4 rounded-full animate-spin;
+        border-color: var(--color-primary-200);
+        border-top-color: var(--color-primary);
+    }
+
+    .loader-text {
+        @apply mt-2 text-sm;
+        color: var(--color-text-secondary);
+    }
+
+    /* =====================================
+       SELECT
+       ===================================== */
+    .form-select {
+        @apply w-full h-12 px-4 rounded-xl border transition-all duration-200 outline-none;
+        background-color: var(--color-white);
+        color: var(--color-text-primary);
+        border-color: var(--color-border);
+    }
+
+    .form-select:hover {
+        border-color: var(--color-primary-300);
+    }
+
+    .form-select:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 4px var(--color-primary-100);
+    }
+
+    .form-select:disabled {
+        background-color: var(--color-background-secondary);
+        color: var(--color-text-disabled);
+        cursor: not-allowed;
+    }
+
+    .form-select-error {
+        border-color: var(--color-danger) !important;
+    }
+
+    .form-select-error:focus {
+        box-shadow: 0 0 0 4px var(--color-danger-light);
+    }
+
+    /* =====================================
+       HELP TEXT
+       ===================================== */
+    .form-help {
+        @apply text-xs mt-1;
+        color: var(--color-text-secondary);
+    }
+
+    /* =====================================
+       TOAST
+       ===================================== */
+    .toast {
+        @apply shadow-xl rounded-2xl p-4 flex items-center justify-between border;
+        background-color: var(--color-surface);
+    }
+
+    .toast-message {
+        @apply text-sm font-semibold leading-tight;
+    }
+
+    .toast-icon {
+        @apply p-2 rounded-full flex-shrink-0;
+    }
+
+    /* SUCCESS */
+    .toast-success {
+        border-color: var(--color-success);
+        background-color: var(--color-success-light);
+    }
+
+    .toast-success .toast-icon {
+        background-color: color-mix(in srgb, var(--color-success) 15%, white);
+        color: var(--color-success-dark);
+    }
+
+    .toast-success .toast-message {
+        color: var(--color-success-dark);
+    }
+
+    /* DANGER */
+    .toast-danger {
+        border-color: var(--color-danger);
+        background-color: var(--color-danger-light);
+    }
+
+    .toast-danger .toast-icon {
+        background-color: color-mix(in srgb, var(--color-danger) 15%, white);
+        color: var(--color-danger-dark);
+    }
+
+    .toast-danger .toast-message {
+        color: var(--color-danger-dark);
+    }
+
+    /* WARNING */
+    .toast-warning {
+        border-color: var(--color-warning);
+        background-color: var(--color-warning-light);
+    }
+
+    .toast-warning .toast-icon {
+        background-color: color-mix(in srgb, var(--color-warning) 15%, white);
+        color: var(--color-warning-dark);
+    }
+
+    .toast-warning .toast-message {
+        color: var(--color-warning-dark);
+    }
+
+    /* INFO */
+    .toast-info {
+        border-color: var(--color-info);
+        background-color: var(--color-info-light);
+    }
+
+    .toast-info .toast-icon {
+        background-color: color-mix(in srgb, var(--color-info) 15%, white);
+        color: var(--color-info-dark);
+    }
+
+    .toast-info .toast-message {
+        color: var(--color-info-dark);
+    }
+
+    /* CLOSE BUTTON */
+    .toast-close {
+        @apply ml-6 p-1.5 rounded-lg transition-colors;
+        color: var(--color-text-secondary);
+    }
+
+    .toast-close:hover {
+        background-color: var(--color-gray-100);
+        color: var(--color-text-primary);
+    }
+
+    /* =====================================
+       MODAL CARD
+       ===================================== */
+    .modal-card {
+        @apply w-full max-w-md rounded-2xl p-6 shadow-2xl;
+        background-color: var(--color-surface);
+    }
+
+    .modal-title {
+        @apply text-xl font-bold;
+        color: var(--color-text-primary);
+    }
+
+    .modal-text {
+        @apply leading-relaxed;
+        color: var(--color-text-secondary);
+    }
+
+    .modal-icon-warning {
+        @apply w-10 h-10 rounded-full flex items-center justify-center;
+        background-color: var(--color-warning-light);
+        color: var(--color-warning-dark);
+    }
+
+    /* =====================================
+       BOTONES
+       ===================================== */
+    .btn {
+        @apply h-12 px-4 lg:px-6 rounded-xl font-semibold transition-all duration-200 shadow-sm flex items-center justify-center gap-2 shrink-0;
+    }
+
+    .btn:hover {
+        @apply scale-105;
+    }
+
+    .btn:active {
+        @apply scale-95;
+    }
+
+    .btn-primary {
+        background-color: var(--color-primary);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--color-primary-700);
+    }
+
+    .btn-success {
+        background-color: var(--color-success);
+        color: white;
+    }
+
+    .btn-success:hover {
+        background-color: var(--color-success-dark);
+    }
+
+    .btn-info {
+        background-color: var(--color-info);
+        color: white;
+    }
+
+    .btn-info:hover {
+        background-color: var(--color-info-dark);
+    }
+
+    .btn-warning {
+        background-color: var(--color-warning);
+        color: white;
+    }
+
+    .btn-warning:hover {
+        background-color: var(--color-warning-dark);
+    }
+
+    .btn-danger {
+        background-color: var(--color-danger);
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: var(--color-danger-dark);
+    }
+
+    .btn-secondary {
+        background-color: var(--color-gray-100);
+        color: var(--color-text-primary);
+        border: 1px solid var(--color-border);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--color-gray-200);
+    }
+}

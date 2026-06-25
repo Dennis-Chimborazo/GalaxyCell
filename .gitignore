@@ -1,0 +1,64 @@
+# ==============================================================================
+# ENTORNO VIRTUAL Y DEPENDENCIAS (No subir porque pesan mucho y se recrean)
+# ==============================================================================
+venv/
+.venv/
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ==============================================================================
+# ARCHIVOS RECOPILADOS POR PYTHON (Bases de datos temporales de ejecución)
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ==============================================================================
+# SEGURIDAD Y CREDENCIALES (CRUCIAL: Nunca subir tu .env con contraseñas)
+# ==============================================================================
+.env
+.env.*
+!.env.example # Permitimos subir un ejemplo sin contraseñas reales
+
+# ==============================================================================
+# BASES DE DATOS LOCALES Y DOCKER (Los datos de Postgres viven en tu PC/Docker)
+# ==============================================================================
+postgres_data/
+.docker/
+
+
+# ==============================================================================
+# FRONTEND / TAILWIND (Archivos generados e instalados por Node/CLI)
+# ==============================================================================
+node_modules/
+.npm/
+mix-manifest.json
+*.log
+
+# ==============================================================================
+# ENTORNO DE DESARROLLO (Configuraciones de VS Code, JetBrains, etc.)
+# ==============================================================================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
