@@ -1,7 +1,6 @@
 {% load static %}
 
 <div class="relative inline-block shrink-0">
-
     {% if is_file %}
         <input
             type="file"
@@ -16,11 +15,10 @@
     <button
         type="{{ tipo|default:'button' }}"
         {% if id %}id="{{ id }}"{% endif %}
-
+        
         {% if is_file %}
             @click="$el.previousElementSibling.click()"
         {% else %}
-
             {% if hx_get %}
                 hx-get="{{ hx_get }}"
                 hx-target="{{ hx_target|default:'#modal-body-content' }}"
@@ -34,7 +32,6 @@
                 hx-swap="{{ hx_swap|default:'innerHTML' }}"
                 hx-indicator="#modal-loader"
             {% endif %}
-
         {% endif %}
 
         {% if hx_confirm %}
@@ -46,82 +43,39 @@
         {% elif close_modal %}
             @click="$dispatch('close-modal')"
         {% endif %}
-
+        
         {{ extra_attrs|safe }}
-
-        class="btn
-
-        {% if style == 'search' %}
-            btn-info
-
-        {% elif style == 'save' %}
-            btn-success
-
-        {% elif style == 'update' %}
-            btn-primary
-
-        {% elif style == 'new' %}
-            btn-primary
-
-        {% elif style == 'folder' %}
-            btn-warning
-
-        {% elif style == 'cancel' %}
-            btn-secondary
-
-        {% elif style == 'delete' %}
-            btn-danger
-
-        {% else %}
-            btn-primary
-
-        {% endif %}"
+        
+        class="btn 
+        {% if style == 'search' %}btn-info
+        {% elif style == 'save' %}btn-success
+        {% elif style == 'update' %}btn-primary
+        {% elif style == 'new' %}btn-primary
+        {% elif style == 'folder' %}btn-warning
+        {% elif style == 'cancel' %}btn-secondary
+        {% elif style == 'delete' %}btn-danger
+        {% else %}btn-primary{% endif %}"
     >
-
         <div class="flex items-center justify-center gap-2">
-
             {% if style == 'search' %}
-                <img src="{% static 'icons/search.svg' %}"
-                     class="w-5 h-5 invert brightness-200"
-                     alt="Buscar">
-
+                <img src="{% static 'icons/search.svg' %}" class="w-5 h-5 invert brightness-200" alt="Buscar">
             {% elif style == 'save' %}
-                <img src="{% static 'icons/save.svg' %}"
-                     class="w-5 h-5 invert brightness-200"
-                     alt="Guardar">
-
+                <img src="{% static 'icons/save.svg' %}" class="w-5 h-5 invert brightness-200" alt="Guardar">
             {% elif style == 'update' %}
-                <img src="{% static 'icons/refresh.svg' %}"
-                     class="w-5 h-5 invert brightness-200"
-                     alt="Actualizar">
-
+                <img src="{% static 'icons/refresh.svg' %}" class="w-5 h-5 invert brightness-200" alt="Actualizar">
             {% elif style == 'cancel' %}
-                <img src="{% static 'icons/cancel.svg' %}"
-                     class="w-5 h-5"
-                     alt="Cancelar">
-
+                <img src="{% static 'icons/cancel.svg' %}" class="w-5 h-5" alt="Cancelar">
             {% elif style == 'new' %}
-                <img src="{% static 'icons/add.svg' %}"
-                     class="w-5 h-5 invert brightness-200"
-                     alt="Nuevo">
-
+                <img src="{% static 'icons/add.svg' %}" class="w-5 h-5 invert brightness-200" alt="Nuevo">
             {% elif style == 'folder' %}
-                <img src="{% static 'icons/folder.svg' %}"
-                     class="w-5 h-5 invert brightness-200"
-                     alt="Abrir">
-
+                <img src="{% static 'icons/folder.svg' %}" class="w-5 h-5 invert brightness-200" alt="Abrir">
             {% elif style == 'delete' %}
-                <img src="{% static 'icons/delete.svg' %}"
-                     class="w-5 h-5 invert brightness-200"
-                     alt="Eliminar">
+                <img src="{% static 'icons/delete.svg' %}" class="w-5 h-5 invert brightness-200" alt="Eliminar">
             {% endif %}
 
             <span class="{% if style == 'save' or style == 'cancel' %}inline{% else %}hidden lg:inline{% endif %} whitespace-nowrap">
                 {{ label|default:"Nuevo" }}
             </span>
-
         </div>
-
     </button>
-
 </div>

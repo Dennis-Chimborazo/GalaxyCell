@@ -1,0 +1,41 @@
+<div class="w-full flex justify-center">
+    <form
+        id="screen-form"
+        hx-post="{% if object.pk %}{% url 'screen:edit' object.pk %}{% else %}{% url 'screen:create' %}{% endif %}"
+        hx-target="#modal-body-content"
+        hx-swap="innerHTML"
+        class="w-full max-w-2xl space-y-8"
+    >
+        {% csrf_token %}
+
+        <div class="bg-white rounded-xl p-6 space-y-6 shadow-sm">
+
+            <div class="space-y-5">
+
+                {% include 'shared/ui/input.html' with field=form.name label='Nombre de Pantalla' required=True maxlength='20' minlength='2' %}
+                {% include 'shared/ui/select.html' with field=form.screen_type label='Tipo de Pantalla' options=form.fields.screen_type.queryset selected_value=form.screen_type.value placeholder='Seleccione un tipo' required=True name='screen_type' %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {% include 'shared/ui/input.html' with field=form.price label='Precio ($)' placeholder='0.00' required=True %}
+                    {% include 'shared/ui/input.html' with field=form.quantity label='Cantidad Inicial' placeholder='0' required=True %}
+                </div>
+
+
+            </div>
+
+            <div class="flex justify-center gap-3 pt-4 border-t border-slate-200">
+
+                {% include 'shared/ui/button-single.html' with label='Cancelar' style='cancel' close_modal=True %}
+
+                {% if object.pk %}
+                    {% include 'shared/ui/button-confirm.html' with label='Actualizar' style='update' is_submit=True form_id='screen-form' message='¿Desea guardar los cambios realizados?' %}
+                {% else %}
+                    {% include 'shared/ui/button-single.html' with label='Guardar' style='save' tipo='submit' %}
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </form>
+</div>

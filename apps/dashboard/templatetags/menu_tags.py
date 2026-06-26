@@ -20,13 +20,13 @@ def build_raw_menu():
             "name": "archivo",
             "submenu": [
                 {
-                    "label": "Oled",
-                    "url": resolve_url("cooperative:list"),
+                    "label": "Registro",
+                    "url": resolve_url("screen:list"),
                 },
-                {
-                    "label": "Incell",
-                    "url": resolve_url("office:list"),
-                },
+                # {
+                #     "label": "Incell",
+                #     "url": resolve_url("office:list"),
+                # },
                 # {
                 #     "label": "Permisos",
                 #     "url": resolve_url("permission:list"),

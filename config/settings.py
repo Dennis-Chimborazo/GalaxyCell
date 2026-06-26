@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'theme',
     'apps.login.apps.LoginConfig',
     'apps.dashboard.apps.DashboardConfig',
-    
+    'apps.screen.apps.ScreenConfig',
     
 ]
 
@@ -56,6 +56,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'utils': 'core.templates.templatetags.utils', 
+            },
         },
     },
 ]

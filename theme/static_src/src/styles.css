@@ -122,13 +122,6 @@
     --color-navbar-border: #e2e8f0;
 
     /* ======================================
-       TABLAS
-       ====================================== */
-    --color-table-header: #f8fafc;
-    --color-table-row-hover: #eff6ff;
-    --color-table-border: #e2e8f0;
-
-    /* ======================================
        FORMULARIOS
        ====================================== */
     --color-input-bg: #ffffff;
@@ -233,6 +226,147 @@
 }
 
 @layer components {
+
+/* ==========================
+   TABLES (CORRECCIÓN DE AZUL SÓLIDO Y ERGONOMÍA)
+   ========================== */
+
+.table-container {
+    overflow-x: auto;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-primary-600); /* Borde a juego con el botón */
+    background: var(--color-surface);
+    box-shadow: 0 10px 30px rgba(0, 59, 142, .04);
+    position: relative;
+    width: 100%;
+}
+
+/* Forzamos el fondo azul de los botones en el head */
+.table-head {
+    background-color: var(--color-primary) !important; /* Usa #0066ff directamente */
+    background-image: none !important;
+}
+
+/* Forzamos que los títulos sean blancos con alta prioridad */
+.table-head th.table-th {
+    color: var(--color-white) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem; /* text-xs */
+    padding: 1rem 1.5rem; /* px-6 py-4 */
+    text-align: left;
+}
+
+/* Sutil línea divisoria blanca semi-transparente entre columnas del head */
+.table-head th {
+    border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.table-head th:last-child {
+    border-right: none !important;
+}
+
+/* Filas del cuerpo de la tabla */
+.table-row {
+    transition: background-color 0.2s ease;
+}
+
+.table-row:hover {
+    background-color: var(--color-table-row-hover); /* #eff6ff */
+}
+
+.table-td {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem; /* text-sm */
+    color: var(--color-text-primary);
+}
+
+/* ==========================
+   PAGINACIÓN
+   ========================== */
+
+.table-pagination {
+    @apply mt-4 flex flex-col sm:flex-row items-center justify-between gap-3 px-2 py-3;
+}
+
+.table-pagination-info {
+    @apply text-sm font-medium;
+
+    color: var(--color-text-secondary);
+}
+
+.table-pagination-button {
+    @apply h-10 w-10 rounded-xl flex items-center justify-center transition-all duration-200;
+
+    background: white;
+
+    border: 1px solid var(--color-border);
+
+    box-shadow:
+        0 4px 10px rgba(0,59,142,.04);
+}
+
+.table-pagination-button:hover {
+
+    background:
+        var(--color-primary-50);
+
+    border-color:
+        var(--color-primary-200);
+
+    transform:
+        translateY(-1px);
+}
+
+.table-pagination-button-disabled {
+
+    opacity: .40;
+
+    cursor: not-allowed;
+
+    background:
+        var(--color-primary-50);
+}
+
+.table-pagination-current {
+
+    @apply h-10 px-5 rounded-xl flex items-center justify-center font-bold;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--color-primary),
+            var(--color-primary-dark)
+        );
+
+    color: white;
+
+    box-shadow:
+        0 8px 18px rgba(0,102,255,.15);
+}
+.table-head {
+    background: linear-gradient(
+        180deg,
+        var(--color-primary-50),
+        white
+    );
+}
+
+.table-th {
+    @apply px-6 py-4 text-sm font-bold uppercase tracking-wider whitespace-nowrap;
+    color: var(--color-text-primary);
+}
+
+.table-row:hover {
+    background: var(--color-primary-50);
+}
+
+.table-td {
+    @apply px-6 py-4 text-sm;
+    color: var(--color-text-primary);
+}
+
     /* ==========================
        SIDEBAR
        ========================== */

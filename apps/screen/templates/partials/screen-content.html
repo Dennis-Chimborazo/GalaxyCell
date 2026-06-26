@@ -1,0 +1,40 @@
+<div class="space-y-6">
+  
+  {# --- TÍTULO PRINCIPAL --- #}
+  <div class="border-b border-gray-200 pb-4">
+    <h1 class="text-2xl font-black text-slate-800 uppercase tracking-tight">
+      Registro Pantallas
+    </h1>
+  </div>
+
+  {# --- BARRA DE HERRAMIENTAS AJUSTADA --- #}
+  <div class="rounded-2xl border border-gray-200 bg-gray-50/50 p-4 shadow-sm">
+
+    <form
+      hx-get="{% url 'screen:table' %}"
+      hx-target="#table-results"
+      hx-swap="outerHTML"
+      hx-push-url="false"
+      class="w-full flex items-end gap-2"
+    >
+      {# --- EL INPUT SE EXPANDE Y DEJA ESPACIO PARA LOS BOTONES EN CELULARES --- #}
+      <div class="flex-1 min-w-0">
+        {% include 'shared/ui/input.html' with label='Nombre' name='search_screen' placeholder='Ej: A05S' value=request.GET.search_screen required=False %}
+      </div>
+
+      {# --- LOS BOTONES SE MANTIENEN ALINEADOS ABAJO JUNTO AL INPUT --- #}
+      <div class="flex items-center gap-1.5 shrink-0 pb-[2px]">
+        {% include 'shared/ui/button.html' with label='Buscar' style='search' tipo='submit' %}
+        {% include 'shared/ui/button.html' with label='Actualizar' style='update' tipo='button' hx_get=table_url|add:'?action=refresh' hx_target='#table-results' hx_swap='outerHTML' %}
+        {% include 'shared/ui/button.html' with label='Nuevo' style='new' tipo='button' hx_get=screen_create_url hx_target='#modal-body-content' hx_swap='innerHTML' open_modal=True %}
+      </div>
+    </form>
+
+  </div>
+
+  {# --- SECCIÓN DE LA TABLA --- #}
+  <div class="pt-2">
+    {% include 'components/data-table.html' %}
+  </div>
+
+</div>

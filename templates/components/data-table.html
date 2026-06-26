@@ -1,0 +1,125 @@
+{% load static %}
+{% load utils %}
+
+<div
+    id="{{ table_id|default:'table-results' }}"
+    hx-get="{{ table_url }}"
+    hx-trigger="refreshTable from:body"
+    hx-target="this"
+    hx-swap="outerHTML"
+    hx-push-url="false"
+    class="mt-2 w-full"
+>
+    {# ========================================== #}
+    {#  1. VISTA MÓVIL: LISTA DE TARJETAS (hidden sm:hidden) #}
+    {# ========================================== #}
+    <div class="block sm:hidden space-y-3">
+        {% for row in rows %}
+            <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-primary)]"></div>
+                
+                <div class="space-y-2 pl-2">
+                    <div class="flex justify-between items-start border-b border-gray-100 pb-2">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Nombre</p>
+                            <p class="text-base font-bold text-slate-800">{{ row.name|default:"-" }}</p>
+                        </div>
+                        
+                        {% if has_actions %}
+                        <button
+                            type="button"
+                            hx-get="{% url edit_url_name row.pk %}"
+                            hx-target="#modal-body-content"
+                            hx-swap="innerHTML"
+                            @click="$dispatch('open-modal', { title: 'Editar' })"
+                            class="flex items-center gap-1 bg-blue-50 text-[var(--color-primary)] text-xs font-bold px-2.5 py-1.5 rounded-lg active:scale-95 transition-transform"
+                        >
+                            <img src="{% static 'icons/edit.svg' %}" class="w-4 h-4" alt="Editar">
+                            Editar
+                        </button>
+                        {% endif %}
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase">OLED</p>
+                            <p class="text-sm font-medium text-slate-700">{{ row.oled|default:"-" }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase">OLED con Marco</p>
+                            <p class="text-sm font-medium text-slate-700">{{ row.oled_con_marco|default:"-" }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase">Incell</p>
+                            <p class="text-sm font-medium text-slate-700">{{ row.incell|default:"-" }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase">Incell con Marco</p>
+                            <p class="text-sm font-medium text-slate-700">{{ row.incell_con_marco|default:"-" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="border border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50/50">
+                <p class="text-sm font-semibold text-slate-500">No hay datos disponibles</p>
+                <p class="text-xs text-slate-400 mt-1">Aún no se han registrado pantallas.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# ========================================== #}
+    {#  2. VISTA ESCRITORIO: TABLA TRADICIONAL (hidden sm:block) #}
+    {# ========================================== #}
+    <div class="hidden sm:block table-container">
+        <table class="table min-w-full">
+            <thead class="table-head">
+                <tr>
+                    {% for header in headers %}
+                        <th class="table-th">{{ header }}</th>
+                    {% endfor %}
+                    {% if has_actions %}
+                        <th class="table-th text-center">ACCIONES</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-slate-100">
+                {% for row in rows %}
+                    <tr class="table-row">
+                        {% for field in fields %}
+                            <td class="table-td border-r border-slate-100 last:border-r-0">
+                                {{ row|get_attr:field }}
+                            </td>
+                        {% endfor %}
+                        {% if has_actions %}
+                            <td class="table-td text-center border-l border-slate-100">
+                                <div class="flex justify-center gap-2">
+                                    <button
+                                        type="button"
+                                        hx-get="{% url edit_url_name row.pk %}"
+                                        hx-target="#modal-body-content"
+                                        hx-swap="innerHTML"
+                                        @click="$dispatch('open-modal', { title: 'Editar' })"
+                                        class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1"
+                                    >
+                                        <img src="{% static 'icons/edit.svg' %}" class="w-4 h-4" alt="Editar">
+                                        <span>Editar</span>
+                                    </button>
+                                </div>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td
+                            colspan="{% if has_actions %}{{ headers|length|add:1 }}{% else %}{{ headers|length }}{% endif %}"
+                            class="table-empty py-16 text-center bg-slate-50/50"
+                        >
+                            <span class="text-base font-semibold text-slate-500 block">No hay datos disponibles</span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
