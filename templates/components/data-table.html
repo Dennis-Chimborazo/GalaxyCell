@@ -102,6 +102,18 @@
                                         @click="$dispatch('open-modal', { title: 'Editar' })"
                                         class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1"
                                     >
+                                        <img src="{% static 'icons/add.svg' %}" class="w-4 h-4" alt="Editar">
+                                        <span>Nuevo</span>
+                                    </button>
+
+                                     <button
+                                        type="button"
+                                        hx-get="{% url edit_url_name row.pk %}"
+                                        hx-target="#modal-body-content"
+                                        hx-swap="innerHTML"
+                                        @click="$dispatch('open-modal', { title: 'Editar' })"
+                                        class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1"
+                                    >
                                         <img src="{% static 'icons/edit.svg' %}" class="w-4 h-4" alt="Editar">
                                         <span>Editar</span>
                                     </button>

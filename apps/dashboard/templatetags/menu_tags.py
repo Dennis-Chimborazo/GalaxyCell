@@ -23,10 +23,10 @@ def build_raw_menu():
                     "label": "Registro",
                     "url": resolve_url("screen:list"),
                 },
-                # {
-                #     "label": "Incell",
-                #     "url": resolve_url("office:list"),
-                # },
+                {
+                    "label": "Ventas",
+                    "url": resolve_url("office:list"),
+                },
                 # {
                 #     "label": "Permisos",
                 #     "url": resolve_url("permission:list"),
@@ -42,20 +42,12 @@ def build_raw_menu():
             ],
         },
         {
-            "label": "Resumen",
-            "name": "sincronizar",
+            "label": "Clientes",
+            "name": "clients",
             "submenu": [
                 {
-                    "label": "Pantallas vendidas",
+                    "label": "Registro",
                     "url": resolve_url("sync:debito"),
-                },
-                {
-                    "label": "Articulos",
-                    "url": resolve_url("migratedata:list"),
-                },
-                {
-                    "label": "Ganancias",
-                    "url": resolve_url("chartaccounts:list"),
                 },
             ],
         },

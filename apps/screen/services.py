@@ -40,6 +40,21 @@ def create_screen(*, name, screen_type_id, quantity, price):
     except (DatabaseError, ScreenType.DoesNotExist) as e:
         return None
 
+
+def create_screen2(*, name):
+    try:
+        with transaction.atomic():
+            name_clean = name.strip()
+            new_screen = Screen.objects.filter(name__iexact=name_clean).first()
+            
+            if not new_screen:
+                new_screen = Screen.objects.create(name=name_clean)
+            
+            return new_screen
+            
+    except (DatabaseError, ScreenType.DoesNotExist) as e:
+        return None
+
 def update_screen(*, screen_id, name=None, screen_type_id=None, quantity=None, price=None):
     try:
         with transaction.atomic():

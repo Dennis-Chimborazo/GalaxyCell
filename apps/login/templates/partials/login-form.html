@@ -1,3 +1,5 @@
+{% load static %}
+
 <form
     method="POST"
     hx-post="{% url 'login:login-process' %}"
@@ -6,6 +8,16 @@
     class="space-y-4 sm:space-y-5 w-full"
 >
     {% csrf_token %}
+
+   <div class="flex justify-center mb-5 sm:mb-6">
+    <div class="w-18 h-10 sm:w-10 sm:h-10 md:w-10 md:h-10 lg:w-10 lg:h-10 flex items-center justify-center">
+        <img
+            src="{% static 'images/logo-login.png' %}"
+            alt="Galaxy Cell"
+            class="w-full h-full object-contain"
+        >
+    </div>
+</div>
 
     {% include "shared/ui/input.html" with field=form.username placeholder="Introduce tu usuario" autocomplete="username" %}
 

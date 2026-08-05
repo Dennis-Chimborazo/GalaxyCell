@@ -10,8 +10,11 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
-ALLOWED_HOSTS = []
+# Opción recomendada para desarrollo en red local:
+ALLOWED_HOSTS = ['192.168.0.121', 'localhost', '127.0.0.1']
 
+# O si quieres olvidarte de problemas en desarrollo:
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 

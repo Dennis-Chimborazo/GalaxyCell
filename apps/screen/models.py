@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 
 class ScreenType(models.Model):
-    id = models.UUIDField(db_column='id', primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(db_column='id', primary_key=True, editable=False)
     name = models.CharField(db_column='nombre', max_length=20, blank=False, null=False)
 
     class Meta:
@@ -13,7 +13,7 @@ class ScreenType(models.Model):
 
 
 class Screen(models.Model):
-    id = models.UUIDField(db_column='id', primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(db_column='id', primary_key=True, editable=False)
     name = models.CharField(db_column='nombre', max_length=20, blank=False, null=False)
 
     class Meta:
@@ -21,7 +21,7 @@ class Screen(models.Model):
 
 
 class ScreensInventory(models.Model):
-    id = models.UUIDField(db_column='id', primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(db_column='id', primary_key=True, editable=False)
     screen_type = models.ForeignKey('ScreenType',on_delete=models.CASCADE, db_column='id_screen_type', related_name='screens' )
     price = models.DecimalField(db_column='price', max_digits=18, decimal_places=2) 
     quantity = models.PositiveIntegerField(db_column='quantity') 

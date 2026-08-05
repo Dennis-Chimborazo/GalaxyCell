@@ -9,38 +9,23 @@ def get_screen_list(search_name=None):
 
         if search_name:
             queryset = queryset.filter(name__icontains=search_name)
-
-        # Cambiado __lower por __iexact. 
-        # Django se encarga de transformar ambos lados a minúsculas en SQL automáticamente.
         return queryset.annotate(
             oled=Coalesce(
                 Sum(
                     'inventory_records__quantity', 
-                    filter=Q(inventory_records__screen_type__name__iexact="oled")
-                ), 
-                0
-            ),
+                    filter=Q(inventory_records__screen_type__name__iexact="oled")), 0),
             oled_con_marco=Coalesce(
                 Sum(
                     'inventory_records__quantity', 
-                    filter=Q(inventory_records__screen_type__name__iexact="oled con marco")
-                ), 
-                0
-            ),
+                    filter=Q(inventory_records__screen_type__name__iexact="oled con marco")), 0),
             incell=Coalesce(
                 Sum(
                     'inventory_records__quantity', 
-                    filter=Q(inventory_records__screen_type__name__iexact="incell")
-                ), 
-                0
-            ),
+                    filter=Q(inventory_records__screen_type__name__iexact="incell")),0),
             incell_con_marco=Coalesce(
                 Sum(
                     'inventory_records__quantity', 
-                    filter=Q(inventory_records__screen_type__name__iexact="incell con marco")
-                ), 
-                0
-            )
+                    filter=Q(inventory_records__screen_type__name__iexact="incell con marco")), 0)
         ).order_by('name')
         
     except DatabaseError:
@@ -57,3 +42,10 @@ def exists_screen(name, exclude_pk=None):
         return queryset.exists() # .exists() devuelve True o False eficientemente
     except DatabaseError:
         return False
+def get_screen_by_id(screen_id):
+    try:
+        return Screen.objects.get(pk=screen_id)
+    except Screen.DoesNotExist:
+        return None
+    except DatabaseError:
+        return None

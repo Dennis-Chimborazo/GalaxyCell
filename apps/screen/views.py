@@ -9,7 +9,7 @@ from core.views.base_table import BaseTableMixin
 from .forms import ScreenForm, ScreenSearchForm
 from .models import Screen, ScreensInventory
 from .selectors import get_screen_list
-from .services import create_screen, update_screen
+from .services import create_screen, update_screen,create_screen2
 
 
 class ScreenTableMixin(BaseTableMixin):
@@ -100,21 +100,15 @@ class ScreenFormMixin(BaseFormMixin):
     )
 
 
-class ScreenCreateView(
-    ScreenFormMixin,
-    CreateView,
-):
+class ScreenCreateView(ScreenFormMixin,CreateView):
     model = Screen
     form_class = ScreenForm
-    template_name = "partials/screen-form.html"
+    template_name = "partials/screen-create.html"
 
     def form_valid(self, form):
         try:
-            self.object = create_screen(
+            self.object = create_screen2(
                 name=form.cleaned_data["name"],
-                screen_type_id=form.cleaned_data["screen_type"].id,
-                quantity=form.cleaned_data["quantity"],
-                price=form.cleaned_data["price"],
             )
 
             if not self.object:

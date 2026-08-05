@@ -7,5 +7,5 @@ urlpatterns = [
     path("", ScreenListView.as_view(), name="list"),
     path("table/", ScreenListView.as_view(), name="table"),
     path("create/", ScreenCreateView.as_view(), name="create"),
-    path("edit/<uuid:pk>/", ScreenUpdateView.as_view(), name="edit"),
+    path("edit/<int:pk>/", ScreenUpdateView.as_view(), name="edit"),
 ]
