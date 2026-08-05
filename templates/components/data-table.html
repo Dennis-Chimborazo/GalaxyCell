@@ -11,7 +11,7 @@
     class="mt-2 w-full"
 >
     {# ========================================== #}
-    {#  1. VISTA MÓVIL: LISTA DE TARJETAS (hidden sm:hidden) #}
+    {# 1. VISTA MÓVIL: LISTA DE TARJETAS #}
     {# ========================================== #}
     <div class="block sm:hidden space-y-3">
         {% for row in rows %}
@@ -25,19 +25,35 @@
                             <p class="text-base font-bold text-slate-800">{{ row.name|default:"-" }}</p>
                         </div>
                         
-                        {% if has_actions %}
-                        <button
-                            type="button"
-                            hx-get="{% url edit_url_name row.pk %}"
-                            hx-target="#modal-body-content"
-                            hx-swap="innerHTML"
-                            @click="$dispatch('open-modal', { title: 'Editar' })"
-                            class="flex items-center gap-1 bg-blue-50 text-[var(--color-primary)] text-xs font-bold px-2.5 py-1.5 rounded-lg active:scale-95 transition-transform"
-                        >
-                            <img src="{% static 'icons/edit.svg' %}" class="w-4 h-4" alt="Editar">
-                            Editar
-                        </button>
-                        {% endif %}
+                        <div class="flex gap-2">
+                            {% if has_actions_create %}
+                            <button
+                                type="button"
+                                hx-get="{% url add_inventory_url_name row.pk %}"
+                                hx-target="#modal-body-content"
+                                hx-swap="innerHTML"
+                                @click="$dispatch('open-modal', { title: 'Agregar Inventario' })"
+                                class="flex items-center gap-1 bg-emerald-50 text-emerald-600 text-xs font-bold px-2.5 py-1.5 rounded-lg active:scale-95 transition-transform"
+                            >
+                                <img src="{% static 'icons/add.svg' %}" class="w-4 h-4" alt="Agregar">
+                                Agregar
+                            </button>
+                            {% endif %}
+
+                            {% if has_actions %}
+                            <button
+                                type="button"
+                                hx-get="{% url edit_url_name row.pk %}"
+                                hx-target="#modal-body-content"
+                                hx-swap="innerHTML"
+                                @click="$dispatch('open-modal', { title: 'Editar Pantalla' })"
+                                class="flex items-center gap-1 bg-blue-50 text-[var(--color-primary)] text-xs font-bold px-2.5 py-1.5 rounded-lg active:scale-95 transition-transform"
+                            >
+                                <img src="{% static 'icons/edit.svg' %}" class="w-4 h-4" alt="Editar">
+                                Editar
+                            </button>
+                            {% endif %}
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-2 pt-1">
@@ -69,7 +85,7 @@
     </div>
 
     {# ========================================== #}
-    {#  2. VISTA ESCRITORIO: TABLA TRADICIONAL (hidden sm:block) #}
+    {# 2. VISTA ESCRITORIO: TABLA TRADICIONAL #}
     {# ========================================== #}
     <div class="hidden sm:block table-container">
         <table class="table min-w-full">
@@ -78,7 +94,7 @@
                     {% for header in headers %}
                         <th class="table-th">{{ header }}</th>
                     {% endfor %}
-                    {% if has_actions %}
+                    {% if has_actions or has_actions_create %}
                         <th class="table-th text-center">ACCIONES</th>
                     {% endif %}
                 </tr>
@@ -91,32 +107,37 @@
                                 {{ row|get_attr:field }}
                             </td>
                         {% endfor %}
-                        {% if has_actions %}
+                        
+                        {% if has_actions or has_actions_create %}
                             <td class="table-td text-center border-l border-slate-100">
-                                <div class="flex justify-center gap-2">
+                                <div class="flex justify-center items-center gap-2">
+                                    {% if has_actions_create %}
+                                    <button
+                                        type="button"
+                                        hx-get="{% url add_inventory_url_name row.pk %}"
+                                        hx-target="#modal-body-content"
+                                        hx-swap="innerHTML"
+                                        @click="$dispatch('open-modal', { title: 'Agregar Inventario' })"
+                                        class="text-emerald-600 hover:text-emerald-800 font-medium inline-flex items-center gap-1"
+                                    >
+                                        <img src="{% static 'icons/add.svg' %}" class="w-4 h-4" alt="Agregar">
+                                        <span>Agregar</span>
+                                    </button>
+                                    {% endif %}
+
+                                    {% if has_actions %}
                                     <button
                                         type="button"
                                         hx-get="{% url edit_url_name row.pk %}"
                                         hx-target="#modal-body-content"
                                         hx-swap="innerHTML"
-                                        @click="$dispatch('open-modal', { title: 'Editar' })"
-                                        class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1"
-                                    >
-                                        <img src="{% static 'icons/add.svg' %}" class="w-4 h-4" alt="Editar">
-                                        <span>Nuevo</span>
-                                    </button>
-
-                                     <button
-                                        type="button"
-                                        hx-get="{% url edit_url_name row.pk %}"
-                                        hx-target="#modal-body-content"
-                                        hx-swap="innerHTML"
-                                        @click="$dispatch('open-modal', { title: 'Editar' })"
+                                        @click="$dispatch('open-modal', { title: 'Editar Pantalla' })"
                                         class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1"
                                     >
                                         <img src="{% static 'icons/edit.svg' %}" class="w-4 h-4" alt="Editar">
                                         <span>Editar</span>
                                     </button>
+                                    {% endif %}
                                 </div>
                             </td>
                         {% endif %}
@@ -124,7 +145,7 @@
                 {% empty %}
                     <tr>
                         <td
-                            colspan="{% if has_actions %}{{ headers|length|add:1 }}{% else %}{{ headers|length }}{% endif %}"
+                            colspan="{% if has_actions or has_actions_create %}{{ headers|length|add:1 }}{% else %}{{ headers|length }}{% endif %}"
                             class="table-empty py-16 text-center bg-slate-50/50"
                         >
                             <span class="text-base font-semibold text-slate-500 block">No hay datos disponibles</span>

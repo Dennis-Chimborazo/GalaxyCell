@@ -40,21 +40,6 @@ def create_screen(*, name, screen_type_id, quantity, price):
     except (DatabaseError, ScreenType.DoesNotExist) as e:
         return None
 
-
-def create_screen2(*, name):
-    try:
-        with transaction.atomic():
-            name_clean = name.strip()
-            new_screen = Screen.objects.filter(name__iexact=name_clean).first()
-            
-            if not new_screen:
-                new_screen = Screen.objects.create(name=name_clean)
-            
-            return new_screen
-            
-    except (DatabaseError, ScreenType.DoesNotExist) as e:
-        return None
-
 def update_screen(*, screen_id, name=None, screen_type_id=None, quantity=None, price=None):
     try:
         with transaction.atomic():
@@ -95,4 +80,36 @@ def update_screen(*, screen_id, name=None, screen_type_id=None, quantity=None, p
         return None
     except DatabaseError:
         # Maneja cualquier otro error de base de datos en Postgres
+        return None
+    
+def add_screen_inventory(*, screen_id, screen_type_id, quantity, price):
+    try:
+        with transaction.atomic():
+            # 1. Obtener la pantalla existente por su ID
+            screen_obj = Screen.objects.get(id=screen_id)
+            
+            # 2. Validar que el tipo de pantalla exista
+            screen_type_instance = ScreenType.objects.get(id=screen_type_id)
+            
+            # 3. Regla de negocio: Si coinciden Screen, ScreenType y Precio -> Se acumula
+            inventory_record = ScreensInventory.objects.filter(
+                screen=screen_obj,
+                screen_type=screen_type_instance,
+                price=price
+            ).first()
+            
+            if inventory_record:
+                inventory_record.quantity += int(quantity)
+                inventory_record.save()
+            else:
+                ScreensInventory.objects.create(
+                    screen=screen_obj,
+                    screen_type=screen_type_instance,
+                    quantity=quantity,
+                    price=price
+                )
+            
+            return screen_obj
+            
+    except (DatabaseError, Screen.DoesNotExist, ScreenType.DoesNotExist):
         return None

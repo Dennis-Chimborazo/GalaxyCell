@@ -1,6 +1,6 @@
 from django.db.models import Sum, Q
 from django.db import DatabaseError
-from .models import Screen
+from .models import Screen,ScreensInventory
 from django.db.models.functions import Coalesce
 
 def get_screen_list(search_name=None):
@@ -49,3 +49,25 @@ def get_screen_by_id(screen_id):
         return None
     except DatabaseError:
         return None
+    
+def get_screen_inventory_details(screen_id=None, screen_type_id=None, search_name=None):
+    """
+    Obtiene los registros de inventario filtrando opcionalmente por 
+    la pantalla, el tipo de pantalla seleccionado o el nombre.
+    """
+    try:
+        queryset = ScreensInventory.objects.select_related('screen', 'screen_type').all()
+
+        if screen_id:
+            queryset = queryset.filter(screen_id=screen_id)
+
+        if screen_type_id:
+            queryset = queryset.filter(screen_type_id=screen_type_id)
+
+        if search_name:
+            queryset = queryset.filter(screen__name__icontains=search_name)
+
+        return queryset.order_by('-id')
+        
+    except DatabaseError:
+        return ScreensInventory.objects.none()

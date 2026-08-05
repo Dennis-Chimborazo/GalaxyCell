@@ -9,7 +9,7 @@ from .forms import AuthForm
 
 class LoginScreenView(View):
     form_class = AuthForm
-    template_name = "login.html"
+    template_name = "layouts/login.html"
 
     def get(self, request):
         if request.user.is_authenticated:

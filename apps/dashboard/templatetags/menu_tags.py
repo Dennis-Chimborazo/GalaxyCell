@@ -47,7 +47,7 @@ def build_raw_menu():
             "submenu": [
                 {
                     "label": "Registro",
-                    "url": resolve_url("sync:debito"),
+                    "url": resolve_url("client:list"),
                 },
             ],
         },
