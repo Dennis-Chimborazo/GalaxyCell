@@ -25,20 +25,8 @@ def build_raw_menu():
                 },
                 {
                     "label": "Ventas",
-                    "url": resolve_url("office:list"),
+                    "url": resolve_url("sales:list"),
                 },
-                # {
-                #     "label": "Permisos",
-                #     "url": resolve_url("permission:list"),
-                # },
-                # {
-                #     "label": "Segmento",
-                #     "url": resolve_url("segment:list"),
-                # },
-                # {
-                #     "label": "Usuarios",
-                #     "url": resolve_url("user:list"),
-                # },
             ],
         },
         {
