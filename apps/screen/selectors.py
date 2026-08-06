@@ -2,7 +2,8 @@ from django.db.models import Sum, Q
 from django.db import DatabaseError
 from .models import Screen,ScreensInventory
 from django.db.models.functions import Coalesce
-
+from django.shortcuts import render, get_object_or_404
+from .forms.update import ScreenUpdateForm
 def get_screen_list(search_name=None):
     try:
         queryset = Screen.objects.all()
@@ -42,6 +43,7 @@ def exists_screen(name, exclude_pk=None):
         return queryset.exists() # .exists() devuelve True o False eficientemente
     except DatabaseError:
         return False
+    
 def get_screen_by_id(screen_id):
     try:
         return Screen.objects.get(pk=screen_id)
@@ -71,3 +73,4 @@ def get_screen_inventory_details(screen_id=None, screen_type_id=None, search_nam
         
     except DatabaseError:
         return ScreensInventory.objects.none()
+    

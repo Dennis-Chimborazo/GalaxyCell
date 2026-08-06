@@ -1,0 +1,8 @@
+<div id="price-quantity-wrapper" class="grid grid-cols-2 gap-4 w-full">
+    <div class="w-full min-w-0">
+        {% include 'shared/ui/input.html' with field=form.quantity label='Cantidad Inicial' placeholder='0' required=True %}
+    </div>
+    <div class="w-full min-w-0">
+        {% include 'shared/ui/input.html' with field=form.price label='Precio ($)' placeholder='0.00' required=True %}
+    </div>
+</div>

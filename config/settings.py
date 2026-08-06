@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'apps.login.apps.LoginConfig',
     'apps.dashboard.apps.DashboardConfig',
     'apps.screen.apps.ScreenConfig',
-    'apps.client.apps.ClientConfig'
+    'apps.client.apps.ClientConfig',
+    'apps.sales.apps.SalesConfig'
     
 ]
 

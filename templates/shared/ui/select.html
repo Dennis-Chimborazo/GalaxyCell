@@ -1,5 +1,4 @@
 {# templates/shared/ui/select.html #}
-
 <div class="space-y-1">
 
     {% if label %}
@@ -16,7 +15,6 @@
     {% endif %}
 
     <select
-
         name="{{ name|default:field.name }}"
         id="{{ id|default:name|default:field.name }}"
 
@@ -24,11 +22,9 @@
         {% if multiple %}multiple{% endif %}
 
         class="form-select
-
         {% if field.errors %}
             form-select-error
         {% endif %}
-
         {% if classes %}
             {{ classes }}
         {% endif %}
@@ -50,35 +46,43 @@
             </option>
         {% endif %}
 
-        {% for obj in options %}
-
-            {% if obj.0 != None and obj.1 != None %}
-
-                <option
-                    value="{{ obj.0 }}"
-                    {% if selected_value|stringformat:"s" == obj.0|stringformat:"s" %}
-                        selected
-                    {% endif %}
-                    title="{{ obj.1 }}"
-                >
-                    {{ obj.1|stringformat:"s"|truncatechars:60 }}
-                </option>
-
-            {% else %}
-
+        {# Se usa field.field.choices para asegurar que cargue las opciones formateadas correctamente #}
+        {% if field.field.choices %}
+            {% for choice_value, choice_label in field.field.choices %}
+                {% if choice_value %}
+                    <option
+                        value="{{ choice_value }}"
+                        {% if choice_value|stringformat:"s" == field.value|stringformat:"s" or choice_value|stringformat:"s" == selected_value|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ choice_label }}
+                    </option>
+                {% endif %}
+            {% endfor %}
+        {% elif field.field.queryset %}
+            {% for obj in field.field.queryset %}
                 <option
                     value="{{ obj.pk }}"
-                    {% if selected_value|stringformat:"s" == obj.pk|stringformat:"s" %}
+                    {% if field.value|stringformat:"s" == obj.pk|stringformat:"s" %}
                         selected
                     {% endif %}
-                    title="{{ obj }}"
+                >
+                    {{ obj }}
+                </option>
+            {% endfor %}
+        {% else %}
+            {% for obj in options %}
+                <option
+                    value="{{ obj.pk|default:obj.0 }}"
+                    {% if selected_value|stringformat:"s" == obj.pk|stringformat:"s" or selected_value|stringformat:"s" == obj.0|stringformat:"s" %}
+                        selected
+                    {% endif %}
                 >
                     {{ obj|stringformat:"s"|truncatechars:70 }}
                 </option>
-
-            {% endif %}
-
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
 
     </select>
 

@@ -1,11 +1,11 @@
 from django.urls import path
 
-# Correcto: se importa directamente desde la carpeta/paquete views
 from .views import (
     ScreenListView,
     ScreenCreateView,
     ScreenUpdateView,
     ScreenAddInventoryView,
+    ScreenInventoryDeleteView,
 )
 
 app_name = "screen"
@@ -16,4 +16,5 @@ urlpatterns = [
     path("create/", ScreenCreateView.as_view(), name="create"),
     path("edit/<int:pk>/", ScreenUpdateView.as_view(), name="edit"),
     path("add-inventory/<int:pk>/", ScreenAddInventoryView.as_view(), name="add-inventory"),
+    path("delete/<int:pk>/", ScreenInventoryDeleteView.as_view(), name="delete"),
 ]

@@ -35,3 +35,7 @@ class ScreensInventory(models.Model):
 
     class Meta:
         db_table = 'screens_inventory'
+        
+    def __str__(self):
+        # Aquí defines cómo quieres que se muestre por defecto en cualquier select o template
+        return f"{self.screen_type.name} - {self.quantity} - ${self.price}"
